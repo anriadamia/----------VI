@@ -64,3 +64,27 @@ document.getElementById("loadMore").addEventListener("click", function () {
   getUsersFunction(currentPage);
 });
 getUsersFunction(currentPage);
+
+
+
+let request=new XMLHttpRequest();
+request.open("GET","https://reqres.in/api/unknown");
+request.send()
+request.addEventListener("load",function(){
+
+let answerText=this.responseText;
+let answerJs=JSON.parse(answerText);
+answerJs.data.forEach(element => {
+    let li=document.createElement("li");
+    let ul=document.createElement("ul")
+    li.textContent=`${element.name} ${element.year}`
+    ul.appendChild(li)
+    document.getElementById("secondusers").appendChild(ul);
+});
+
+})
+request.addEventListener("error",function(){
+    let p=document.createElement("p");
+    p.textContent="Page Not Found";
+    document.getElementById("userInfo").appendChild(p);
+})
